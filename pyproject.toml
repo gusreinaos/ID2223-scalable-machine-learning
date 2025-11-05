@@ -22,12 +22,12 @@ dependencies = [
     "requests-cache==1.2.0",
     "retry-requests==2.0.0",
     "xgboost==2.0.3",
-    # "scikit-learn",
+    "scikit-learn",
     "plotly",
     "seaborn",
     "nbformat",
     "Faker",
-    "matplotlib==3.8.3"
+    "matplotlib>=3.9.0"
 ]
 
 #getpass4==0.0.14.1
