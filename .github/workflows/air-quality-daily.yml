@@ -39,8 +39,19 @@ jobs:
 
       - name: execute python workflows from bash script
         env:
+          # use api keys when populating .env file
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
+          AQICN_API_KEY: ${{ secrets.AQICN_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
+          touch .env
+          echo "HOPSWORKS_API_KEY: $HOPSWORKS_API_KEY" >> .env
+          echo "AQICN_API_KEY: $AQICN_API_KEY" >> .env
+          echo "AQICN_URL: https://api.waqi.info/feed/@13982" >> .env
+          echo "AQICN_COUNTRY: sweden" >> .env
+          echo "AQICN_CITY: skelleftea-kv-pantern" >> .env
+          echo "AQICN_STREET: viktoriagatan" >> .env
+          echo "OPENAI_API_KEY: $OPENAI_API_KEY" >> .env
           cd local_notebooks/
           jupyter nbconvert --to notebook --execute 2_air_quality_feature_pipeline.ipynb
           jupyter nbconvert --to notebook --execute 4_air_quality_batch_inference.ipynb
