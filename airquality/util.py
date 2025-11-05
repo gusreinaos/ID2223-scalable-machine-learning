@@ -146,7 +146,7 @@ def get_pm25(aqicn_url: str, country: str, city: str, street: str, day: datetime
     Returns DataFrame with air quality (pm25) as dataframe
     """
     # The API endpoint URL
-    url = f"{aqicn_url}\?token={AQI_API_KEY}"
+    url = f"{aqicn_url}/?token={AQI_API_KEY}"
 
     # Make a GET request to fetch the data from the API
     data = trigger_request(url)
