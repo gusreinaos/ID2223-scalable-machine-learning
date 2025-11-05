@@ -2,8 +2,8 @@ name: air-quality-daily
 
 on:
   workflow_dispatch:
-    #schedule:
-    #- cron: '11 6 * * *'
+    schedule:
+    - cron: '11 6 * * *'
 
 #Uncomment to allow chron job to run every day
 # ┌───────────── minute (0 - 59)
