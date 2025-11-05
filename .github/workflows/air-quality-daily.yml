@@ -45,7 +45,7 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           touch .env
-          ls
+          ls -la .env
           echo "HOPSWORKS_API_KEY: $HOPSWORKS_API_KEY" >> .env
           echo "AQICN_API_KEY: $AQICN_API_KEY" >> .env
           echo "AQICN_URL: https://api.waqi.info/feed/@13982" >> .env
