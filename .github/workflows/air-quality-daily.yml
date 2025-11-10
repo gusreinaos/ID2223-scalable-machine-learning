@@ -63,13 +63,13 @@ jobs:
           commit_message: "Air Quality Dashboard published"
           commit_options: "--no-verify --signoff"
 
-          file_pattern: "docs/air-quality/assets/img/* docs/index.md"
+          file_pattern: "docs/"
 
           repository: .
 
           status_options: "--untracked-files=no"
 
-          skip_dirty_check: true
+          skip_dirty_check: false
 
           skip_fetch: true
 
