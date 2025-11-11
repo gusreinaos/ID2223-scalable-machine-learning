@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f7;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 1rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0071e3 0%, #00c7be 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: #86868b;
+            font-weight: 400;
+        }
+
+        .pill-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .pill {
+            background: white;
+            border-radius: 28px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .pill:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .pill-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #0071e3 0%, #00c7be 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .pill-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1d1d1f;
+            letter-spacing: -0.01em;
+        }
+
+        .pill-badge {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            background: rgba(0, 113, 227, 0.1);
+            color: #0071e3;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .image-wrapper {
+            background: #f5f5f7;
+            border-radius: 18px;
+            padding: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.02) 100%);
+            pointer-events: none;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .pill:hover img {
+            transform: scale(1.02);
+        }
+
+        .info-bar {
+            background: white;
+            border-radius: 28px;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            margin-top: 2rem;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #34c759;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(1.1);
+            }
+        }
+
+        .info-text {
+            color: #86868b;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .info-text strong {
+            color: #1d1d1f;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .pill-container {
+                grid-template-columns: 1fr;
+            }
+
+            .pill {
+                padding: 1.5rem;
+            }
+
+            .pill-title {
+                font-size: 1.25rem;
+            }
+
+            .info-bar {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.25rem 1.5rem;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #000000;
+            }
+
+            .pill {
+                background: #1d1d1f;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .pill-title {
+                color: #f5f5f7;
+            }
+
+            .image-wrapper {
+                background: #2d2d2f;
+            }
+
+            .info-bar {
+                background: #1d1d1f;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .info-text {
+                color: #86868b;
+            }
+
+            .info-text strong {
+                color: #f5f5f7;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Air Quality Dashboard</h1>
+            <p class="subtitle">Real-time monitoring and forecasting</p>
+        </header>
+        
+        <div class="pill-container">
+            <div class="pill">
+                <div class="pill-header">
+                    <div class="icon">📊</div>
+                    <div>
+                        <div class="pill-title">PM2.5 Forecast</div>
+                        <span class="pill-badge">Predictive Analysis</span>
+                    </div>
+                </div>
+                <div class="image-wrapper">
+                    <img src="air-quality/assets/img/pm25_forecast.png" alt="PM2.5 Forecast visualization showing predicted air quality levels">
+                </div>
+            </div>
+
+            <div class="pill">
+                <div class="pill-header">
+                    <div class="icon">📈</div>
+                    <div>
+                        <div class="pill-title">PM2.5 Hindcast</div>
+                        <span class="pill-badge">1 Day Historical</span>
+                    </div>
+                </div>
+                <div class="image-wrapper">
+                    <img src="air-quality/assets/img/pm25_hindcast_1day.png" alt="PM2.5 Hindcast showing air quality data from the past day">
+                </div>
+            </div>
+        </div>
+
+        <div class="info-bar">
+            <div class="status-dot"></div>
+            <p class="info-text"><strong>Auto-updated</strong> · Last refresh via GitHub Actions</p>
+        </div>
+    </div>
+</body>
+</html>
