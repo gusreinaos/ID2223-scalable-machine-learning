@@ -1,19 +1,9 @@
 name: air-quality-daily
 
 on:
+  schedule:
+    - cron: "11 6 * * *"
   workflow_dispatch:
-    schedule:
-      - cron: "11 6 * * *"
-
-#Uncomment to allow chron job to run every day
-# ┌───────────── minute (0 - 59)
-# │ ┌───────────── hour (0 - 23)
-# │ │ ┌───────────── day of the month (1 - 31)
-# │ │ │ ┌───────────── month (1 - 12 or JAN-DEC)
-# │ │ │ │ ┌───────────── day of the week (0 - 6 or SUN-SAT; Sunday is 0)
-# │ │ │ │ │
-# * * * * *
-#
 
 jobs:
   schedule_pipelines:
