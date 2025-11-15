@@ -1,0 +1,21 @@
+{
+    "extra_sensors" : {
+        "ac846-skelleftea.csv": {
+            "AQICN_CITY": "",
+            "AQICN_URL": "https://api.waqi.info/feed/A409513",
+            "AQICN_STREET": "",
+            "LATITUDE": 64.944,
+            "LONGITUDE": 20.038
+        },
+        "mobackavagen-skelleftea.csv": {
+            "AQICN_CITY": "skelleftea-kv-pantern",
+            "AQICN_URL": "https://api.waqi.info/feed/A497266",
+            "AQICN_STREET": "mobackavagen"
+        },
+        "vindeln-vasterbotten.csv": {
+            "AQICN_CITY": "vindeln",
+            "AQICN_URL": "https://api.waqi.info/feed/A501046",
+            "AQICN_STREET": ""
+        }
+    }
+}

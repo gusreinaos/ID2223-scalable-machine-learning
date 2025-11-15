@@ -16,7 +16,8 @@ import hsfs
 from pathlib import Path
 
 def get_historical_weather(city, start_date,  end_date, latitude, longitude):
-    # latitude, longitude = get_city_coordinates(city)
+    if latitude is None or longitude is None:
+        latitude, longitude = get_city_coordinates(city)
 
     # Setup the Open-Meteo API client with cache and retry on error
     cache_session = requests_cache.CachedSession('.cache', expire_after = -1)
@@ -66,8 +67,8 @@ def get_historical_weather(city, start_date,  end_date, latitude, longitude):
     return daily_dataframe
 
 def get_hourly_weather_forecast(city, latitude, longitude):
-
-    # latitude, longitude = get_city_coordinates(city)
+    if latitude is None or longitude is None:
+        latitude, longitude = get_city_coordinates(city)
 
     # Setup the Open-Meteo API client with cache and retry on error
     cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
@@ -121,7 +122,7 @@ def get_city_coordinates(city_name: str):
     Takes city name and returns its latitude and longitude (rounded to 2 digits after dot).
     """
     # Initialize Nominatim API (for getting lat and long of the city)
-    geolocator = Nominatim(user_agent="MyApp")
+    geolocator = Nominatim(user_agent="Project_Air_Quality")
     city = geolocator.geocode(city_name)
 
     latitude = round(city.latitude, 2)
@@ -286,6 +287,20 @@ def check_file_path(file_path):
         print(f"Error. File not found at the path: {file_path} ")
     else:
         print(f"File successfully found at the path: {file_path}")
+
+def check_data_folder_structure(root_dir):
+    data_dir = os.path.join(root_dir, "data")
+    data_dir = os.path.join(data_dir, "extra_sensors")
+    print(f"Checking data folder structure at path: {data_dir}")
+    if not os.path.exists(data_dir):
+        print(f"Error: Data directory not found at path: {data_dir}")
+        return
+    expected_files = ["mobackavagen-skelleftea.csv", "ac846-skelleftea.csv", "vindeln-vasterbotten.csv"]
+    missing_files = [f for f in expected_files if not os.path.isfile(os.path.join(data_dir, f))]
+    if missing_files:
+        print(f"Error: Missing files in data directory: {', '.join(missing_files)}")
+    else:
+        print("Data folder structure is correct.")
 
 def backfill_predictions_for_monitoring(weather_fg, air_quality_df, monitor_fg, model):
     features_df = weather_fg.read()
