@@ -11,11 +11,6 @@
             "AQICN_CITY": "skelleftea-kv-pantern",
             "AQICN_URL": "https://api.waqi.info/feed/A497266",
             "AQICN_STREET": "mobackavagen"
-        },
-        "vindeln-vasterbotten.csv": {
-            "AQICN_CITY": "vindeln",
-            "AQICN_URL": "https://api.waqi.info/feed/A501046",
-            "AQICN_STREET": ""
         }
     }
 }
