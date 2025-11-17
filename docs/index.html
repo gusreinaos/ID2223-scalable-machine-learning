@@ -59,7 +59,7 @@
 
         .pill-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
@@ -222,6 +222,12 @@
             }
         }
 
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .pill-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (prefers-color-scheme: dark) {
             body {
                 background: #000000;
@@ -293,6 +299,32 @@
                     <img src="air-quality/assets/img/pm25_hindcast_1day.png" alt="PM2.5 Hindcast showing air quality data from the past day">
                 </div>
             </div>
+
+            <div class="pill">
+                <div class="pill-header">
+                    <div class="icon">🔄</div>
+                    <div>
+                        <div class="pill-title">Lagged Forecast</div>
+                        <span class="pill-badge">Previous Prediction</span>
+                    </div>
+                </div>
+                <div class="image-wrapper">
+                    <img src="air-quality/assets/img/lagged/pm25_forecast.png" alt="Lagged PM2.5 Forecast from previous prediction cycle">
+                </div>
+            </div>
+
+            <div class="pill">
+                <div class="pill-header">
+                    <div class="icon">⏮️</div>
+                    <div>
+                        <div class="pill-title">Lagged Hindcast</div>
+                        <span class="pill-badge">Previous Historical</span>
+                    </div>
+                </div>
+                <div class="image-wrapper">
+                    <img src="air-quality/assets/img/lagged/pm25_hindcast_1day.png" alt="Lagged PM2.5 Hindcast from previous cycle">
+                </div>
+            </div>
         </div>
 
         <h2 class="region-title">Ostermalmsgatan, Umeå</h2>
@@ -320,6 +352,32 @@
                 </div>
                 <div class="image-wrapper">
                     <img src="air-quality/assets/img/pm25_hindcast_1day_ostermalmsgatan_vasterbotten.png" alt="PM2.5 Hindcast showing air quality data from the past day">
+                </div>
+            </div>
+
+            <div class="pill">
+                <div class="pill-header">
+                    <div class="icon">🔄</div>
+                    <div>
+                        <div class="pill-title">Lagged Forecast</div>
+                        <span class="pill-badge">Previous Prediction</span>
+                    </div>
+                </div>
+                <div class="image-wrapper">
+                    <img src="air-quality/assets/img/lagged/pm25_forecast_ostermalmsgatan_vasterbotten.png" alt="Lagged PM2.5 Forecast from previous prediction cycle">
+                </div>
+            </div>
+
+            <div class="pill">
+                <div class="pill-header">
+                    <div class="icon">⏮️</div>
+                    <div>
+                        <div class="pill-title">Lagged Hindcast</div>
+                        <span class="pill-badge">Previous Historical</span>
+                    </div>
+                </div>
+                <div class="image-wrapper">
+                    <img src="air-quality/assets/img/lagged/pm25_hindcast_1day_ostermalmsgatan_vasterbotten.png" alt="Lagged PM2.5 Hindcast from previous cycle">
                 </div>
             </div>
         </div>
@@ -351,6 +409,32 @@
                     <img src="air-quality/assets/img/pm25_hindcast_1day_vittervagen_vasterbotten.png" alt="PM2.5 Hindcast showing air quality data from the past day">
                 </div>
             </div>
+
+            <div class="pill">
+                <div class="pill-header">
+                    <div class="icon">🔄</div>
+                    <div>
+                        <div class="pill-title">Lagged Forecast</div>
+                        <span class="pill-badge">Previous Prediction</span>
+                    </div>
+                </div>
+                <div class="image-wrapper">
+                    <img src="air-quality/assets/img/lagged/pm25_forecast_vittervagen_vasterbotten.png" alt="Lagged PM2.5 Forecast from previous prediction cycle">
+                </div>
+            </div>
+
+            <div class="pill">
+                <div class="pill-header">
+                    <div class="icon">⏮️</div>
+                    <div>
+                        <div class="pill-title">Lagged Hindcast</div>
+                        <span class="pill-badge">Previous Historical</span>
+                    </div>
+                </div>
+                <div class="image-wrapper">
+                    <img src="air-quality/assets/img/lagged/pm25_hindcast_1day_vittervagen_vasterbotten.png" alt="Lagged PM2.5 Hindcast from previous cycle">
+                </div>
+            </div>
         </div>
 
         <h2 class="region-title">Mobackavägen, Skellefteå</h2>
@@ -380,6 +464,32 @@
                     <img src="air-quality/assets/img/pm25_hindcast_1day_mobackavagen_skelleftea.png" alt="PM2.5 Hindcast showing air quality data from the past day">
                 </div>
             </div>
+
+            <div class="pill">
+                <div class="pill-header">
+                    <div class="icon">🔄</div>
+                    <div>
+                        <div class="pill-title">Lagged Forecast</div>
+                        <span class="pill-badge">Previous Prediction</span>
+                    </div>
+                </div>
+                <div class="image-wrapper">
+                    <img src="air-quality/assets/img/lagged/pm25_forecast_mobackavagen_skelleftea.png" alt="Lagged PM2.5 Forecast from previous prediction cycle">
+                </div>
+            </div>
+
+            <div class="pill">
+                <div class="pill-header">
+                    <div class="icon">⏮️</div>
+                    <div>
+                        <div class="pill-title">Lagged Hindcast</div>
+                        <span class="pill-badge">Previous Historical</span>
+                    </div>
+                </div>
+                <div class="image-wrapper">
+                    <img src="air-quality/assets/img/lagged/pm25_hindcast_1day_mobackavagen_skelleftea.png" alt="Lagged PM2.5 Hindcast from previous cycle">
+                </div>
+            </div>
         </div>
 
         <h2 class="region-title">AC846, Skellefteå</h2>
@@ -407,6 +517,32 @@
                 </div>
                 <div class="image-wrapper">
                     <img src="air-quality/assets/img/pm25_hindcast_1day_ac846_skelleftea.png" alt="PM2.5 Hindcast showing air quality data from the past day">
+                </div>
+            </div>
+
+            <div class="pill">
+                <div class="pill-header">
+                    <div class="icon">🔄</div>
+                    <div>
+                        <div class="pill-title">Lagged Forecast</div>
+                        <span class="pill-badge">Previous Prediction</span>
+                    </div>
+                </div>
+                <div class="image-wrapper">
+                    <img src="air-quality/assets/img/lagged/pm25_forecast_ac846_skelleftea.png" alt="Lagged PM2.5 Forecast from previous prediction cycle">
+                </div>
+            </div>
+
+            <div class="pill">
+                <div class="pill-header">
+                    <div class="icon">⏮️</div>
+                    <div>
+                        <div class="pill-title">Lagged Hindcast</div>
+                        <span class="pill-badge">Previous Historical</span>
+                    </div>
+                </div>
+                <div class="image-wrapper">
+                    <img src="air-quality/assets/img/lagged/pm25_hindcast_1day_ac846_skelleftea.png" alt="Lagged PM2.5 Hindcast from previous cycle">
                 </div>
             </div>
         </div>

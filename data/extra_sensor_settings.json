@@ -1,7 +1,7 @@
 {
     "extra_sensors" : {
         "ac846-skelleftea.csv": {
-            "AQICN_CITY": "",
+            "AQICN_CITY": "skelleftea",
             "AQICN_URL": "https://api.waqi.info/feed/A409513",
             "AQICN_STREET": "",
             "LATITUDE": 64.944,
