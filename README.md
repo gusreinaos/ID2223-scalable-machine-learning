@@ -2,6 +2,10 @@
 
 A scalable machine learning system for predicting PM2.5 air quality levels in Västerbotten, Sweden using feature pipelines and batch inference.
 
+## 🌐 Dashboard
+
+[Click me to see the dashboard](https://gusreinaos.github.io/ID2223-scalable-machine-learning/)
+
 ## 📍 Region & Sensors
 
 **Region:** Västerbotten, Sweden
@@ -43,10 +47,6 @@ The `local_notebooks/` directory contains four Jupyter notebooks that implement 
 2. **`2_air_quality_feature_pipeline.ipynb`** - Daily pipeline that fetches current air quality from AQICN API and weather from OpenMeteo, scheduled to run daily via GitHub Actions
 3. **`3_air_quality_training_pipeline.ipynb`** - Trains XGBoost regression model on historical features to predict PM2.5 levels and stores model in registry
 4. **`4_air_quality_batch_inference.ipynb`** - Generates daily predictions using trained model and latest features, writes forecasts to feature store
-
-## 🌐 Dashboard
-
-[Click me to see the dashboard](https://gusreinaos.github.io/ID2223-scalable-machine-learning/)
 
 ## 🚀 Getting Started
 
