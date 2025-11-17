@@ -295,7 +295,7 @@ def check_data_folder_structure(root_dir):
     if not os.path.exists(data_dir):
         print(f"Error: Data directory not found at path: {data_dir}")
         return
-    expected_files = ["mobackavagen-skelleftea.csv", "ac846-skelleftea.csv", "vindeln-vasterbotten.csv"]
+    expected_files = ["mobackavagen-skelleftea.csv", "ac846-skelleftea.csv", "ostermalmsgatan-vasterbotten.csv", "vittervagen.csv"]
     missing_files = [f for f in expected_files if not os.path.isfile(os.path.join(data_dir, f))]
     if missing_files:
         print(f"Error: Missing files in data directory: {', '.join(missing_files)}")
