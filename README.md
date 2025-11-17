@@ -15,12 +15,15 @@ We monitor air quality using sensors from two cities in Västerbotten:
 ### Skellefteå Sensors
 - **AC846 Station** (A409513) - Lat: 64.944, Lon: 20.038
 - **Mobackavägen** (A497266) - Located in Kv. Pantern area
+- **Viktoriavägen** (13982) - Located in Kv. Pantern area (Main sensor in Skelleftea)
 
 ### Umeå Sensors  
 - **Östermalmsgatan** (A60886) - Lat: 63.824, Lon: 20.288
 - **Vittervägen** (A60073) - Lat: 63.808, Lon: 20.336
 
 All sensors measure **PM2.5** particulate matter levels sourced from [AQICN](https://aqicn.org/).
+
+The issue with this region was the limited amount of sensors that measure the PM2.5 which resulted in only 5 sensors comprising our dashboard. Each sensor is somewhat close to one another with AC846 being a bit further off as its on a highway leading to Skelleftea. 
 
 ## 🔄 ML Pipeline
 
