@@ -3,7 +3,7 @@
         "ac846-skelleftea.csv": {
             "AQICN_CITY": "skelleftea",
             "AQICN_URL": "https://api.waqi.info/feed/A409513",
-            "AQICN_STREET": "",
+            "AQICN_STREET": "ac846",
             "LATITUDE": 64.944,
             "LONGITUDE": 20.038
         },
@@ -11,20 +11,6 @@
             "AQICN_CITY": "skelleftea-kv-pantern",
             "AQICN_URL": "https://api.waqi.info/feed/A497266",
             "AQICN_STREET": "mobackavagen"
-        },
-        "ostermalmsgatan-vasterbotten.csv": {
-            "AQICN_CITY": "umea",
-            "AQICN_URL": "https://api.waqi.info/feed/A60886",
-            "AQICN_STREET": "ostermalmsgatan",
-            "LATITUDE": 63.824,
-            "LONGITUDE": 20.288
-        },
-        "vittervagen-vasterbotten.csv": {
-            "AQICN_CITY": "umea",
-            "AQICN_URL": "https://api.waqi.info/feed/A60073",
-            "AQICN_STREET": "vittervagen",
-            "LATITUDE": 63.808,
-            "LONGITUDE": 20.336
         }
     }
 }
