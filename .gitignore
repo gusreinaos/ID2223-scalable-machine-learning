@@ -170,3 +170,5 @@ snurran.sh
 .DS_Store
 
 extra_util/
+
+local_notebooks/*.py
