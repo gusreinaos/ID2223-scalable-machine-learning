@@ -1,0 +1,16 @@
+{
+    "extra_sensors" : {
+        "ac846-skelleftea.csv": {
+            "AQICN_CITY": "skelleftea",
+            "AQICN_URL": "https://api.waqi.info/feed/A409513",
+            "AQICN_STREET": "ac846",
+            "LATITUDE": 64.944,
+            "LONGITUDE": 20.038
+        },
+        "mobackavagen-skelleftea.csv": {
+            "AQICN_CITY": "skelleftea-kv-pantern",
+            "AQICN_URL": "https://api.waqi.info/feed/A497266",
+            "AQICN_STREET": "mobackavagen"
+        }
+    }
+}

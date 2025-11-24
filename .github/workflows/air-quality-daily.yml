@@ -1,0 +1,68 @@
+name: air-quality-daily
+
+on:
+  schedule:
+    - cron: "11 6 * * *"
+  workflow_dispatch:
+
+jobs:
+  schedule_pipelines:
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      contents: write
+
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v4
+
+      - name: setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: "pip"
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: execute python workflows from bash script
+        env:
+          # use api keys when populating .env file
+          HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
+          AQICN_API_KEY: ${{ secrets.AQICN_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          touch .env
+          echo "HOPSWORKS_API_KEY=$HOPSWORKS_API_KEY" >> .env
+          echo "AQICN_API_KEY=$AQICN_API_KEY" >> .env
+          echo "AQICN_URL=https://api.waqi.info/feed/@13982" >> .env
+          echo "AQICN_COUNTRY=sweden" >> .env
+          echo "AQICN_CITY=skelleftea-kv-pantern" >> .env
+          echo "AQICN_STREET=viktoriagatan" >> .env
+          echo "OPENAI_API_KEY=$OPENAI_API_KEY" >> .env
+          ls -la .env
+          cd local_notebooks/
+          jupyter nbconvert --to notebook --execute 2_air_quality_feature_pipeline.ipynb
+          jupyter nbconvert --to notebook --execute 4_air_quality_batch_inference.ipynb
+
+      - name: github pages publish
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Air Quality Dashboard published"
+          commit_options: "--no-verify --signoff"
+
+          file_pattern: "docs/"
+
+          repository: .
+
+          status_options: "--untracked-files=no"
+
+          skip_dirty_check: false
+
+          skip_fetch: true
+
+          skip_checkout: true
+
+          push_options: "--force"
