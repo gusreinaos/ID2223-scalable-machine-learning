@@ -1,0 +1,8 @@
+gradio
+torch
+transformers
+TTS
+soundfile
+numpy
+huggingface-hub
+llama-cpp-python
