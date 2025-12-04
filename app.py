@@ -6,31 +6,39 @@ import numpy as np
 import soundfile as sf
 import torch
 from huggingface_hub import hf_hub_download
-from llama_cpp import Llama
 from transformers import pipeline
 from TTS.api import TTS
 
-# --- Device Setup ---
-device = "cpu"
+from llama_cpp import Llama
 
-# --- 1. STT Setup (Whisper) ---
+
+# --- Device Setup ---
+device = "cpu" 
+
+# --- 1. STT Setup (Whisper) --- 
 print("Loading Whisper...")
 STT_MODEL_NAME = "openai/whisper-tiny.en"
 stt_pipe = pipeline("automatic-speech-recognition", model=STT_MODEL_NAME, device=device)
 
-# --- 2. LLM Setup (YOUR GGUF MODEL) ---
-print("Downloading and loading your GGUF model...")
+# --- 2. LLM Setup (Llama.cpp) ---
+print("Setting up Llama.cpp...")
+HF_API_TOKEN = os.getenv("HF_TOKEN")
 
-# Download your specific model file
-model_path = hf_hub_download(repo_id="gzsol/model_1b", filename="model-Q8_0.gguf")
-
-# Initialize Llama-cpp (Optimized for CPU)
-llm = Llama(
-    model_path=model_path,
-    n_ctx=2048,  # Context window
-    n_threads=2,  # CPU threads
-    verbose=False,
+print("Downloading gzsol/model_1b GGUF...")
+model_path = hf_hub_download(
+    repo_id="gzsol/model_1b",
+    filename="model.gguf",
+    token=HF_API_TOKEN,
 )
+
+print(f"Model path: {model_path}")
+print(f"File exists: {os.path.exists(model_path)}")
+if os.path.exists(model_path):
+    print(f"File size: {os.path.getsize(model_path)} bytes")
+    print(f"File size: {os.path.getsize(model_path) / (1024**3):.2f} GiB")
+
+print(f"Loading model from {model_path}...")
+llm = Llama(model_path=model_path, n_gpu_layers=0, n_ctx=2048)
 
 # --- 3. TTS Setup (Coqui) ---
 print("Loading TTS...")
@@ -43,7 +51,7 @@ tts_model = TTS(model_name=TTS_MODEL_NAME, progress_bar=False)
 
 def chat_with_bot(message, history):
     """
-    Chat with your GGUF model.
+    Chat with your model using HuggingFace InferenceClient.
     """
     # Ensure history is a list
     if history is None:
@@ -53,38 +61,48 @@ def chat_with_bot(message, history):
         return history, ""
 
     try:
-        # Format history for Llama (OpenAI format)
-        messages = []
-        # Add system prompt if desired
-        messages.append(
-            {"role": "system", "content": "You are a helpful AI assistant."}
+        # Build conversation context from history
+        context = ""
+        for h in history:
+            role = "User" if h.get("role") == "user" else "Assistant"
+            context += f"{role}: {h.get('content', '')}\n"
+        
+        # Create prompt with context
+        prompt = context + f"User: {message}\nAssistant:"
+
+        print(f"Generating response with Llama...")
+        
+        # Generate response using llama.cpp
+        response = llm(
+            prompt,
+            max_tokens=256,
+            temperature=0.7,
+            top_p=0.95,
         )
-
-        # Add conversation history
-        for msg in history:
-            messages.append(msg)  # msg is already {"role": "...", "content": "..."}
-
-        # Add new user message
-        messages.append({"role": "user", "content": message})
-
-        # Generate response using your GGUF model
-        output = llm.create_chat_completion(
-            messages=messages, max_tokens=256, temperature=0.7, stream=False
-        )
-
-        response = output["choices"][0]["message"]["content"]
+        
+        response_str = response["choices"][0]["text"].strip()
+        
+        if not response_str:
+            response_str = "I received an empty response. Please try again."
+            print("Warning: Empty response from LLM")
 
         # Append to history
         history.append({"role": "user", "content": message})
-        history.append({"role": "assistant", "content": response})
+        history.append({"role": "assistant", "content": response_str})
 
-        return history, response
+        return history, response_str
 
     except Exception as e:
+        import traceback
+        error_trace = traceback.format_exc()
         print(f"LLM Error: {e}")
+        print(f"Full traceback:\n{error_trace}")
+        
+        error_msg = f"Error generating response: {str(e) if str(e) else 'Unknown error occurred'}"
+        
         history.append({"role": "user", "content": message})
-        history.append({"role": "assistant", "content": f"Error: {e}"})
-        return history, f"Error: {e}"
+        history.append({"role": "assistant", "content": error_msg})
+        return history, error_msg
 
 
 def text_to_speech_from_chat(chat_response):
@@ -159,7 +177,6 @@ with gr.Blocks() as demo:
                 label="Conversation Log",
                 elem_classes=["chatbot"],
                 value=[],
-                type="messages",
             )
 
             with gr.Row():
@@ -207,7 +224,6 @@ with gr.Blocks() as demo:
                 label="Conversation",
                 elem_classes=["chatbot"],
                 value=[],
-                type="messages",
             )
             msg = gr.Textbox(label="Message")
             submit_btn = gr.Button("Send")

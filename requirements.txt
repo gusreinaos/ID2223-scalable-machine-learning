@@ -1,8 +1,20 @@
-gradio
-torch
-transformers
-TTS
+# --- Gradio ---
+gradio==4.31.4
+
+# --- Core audio tools ---
 soundfile
 numpy
-huggingface-hub
-llama-cpp-python
+
+# --- Whisper STT (tiny + small models) ---
+torch==2.2.1
+transformers==4.40.0
+huggingface_hub
+
+# --- Lightweight TTS ---
+TTS==0.22.0
+gruut==2.2.3
+gruut-ipa==0.13.0
+gruut_lang_en==2.0.1
+
+# --- llama.cpp GGUF backend ---
+llama-cpp-python==0.3.2
